@@ -1,0 +1,6 @@
+@import url(theme.css);
+
+.teste {
+ display: flex;
+ color: black;
+}
