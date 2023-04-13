@@ -1,12 +1,11 @@
-import LoginPage from './pages/LoginPage'
-import './styles/App.css'
+
+import "./styles/App.css";
+import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 
 export const App = () => {
-
-
   return (
-    {LoginPage}
-  )
-}
+    <div>Hello world!</div>
+  );
+};
 
-export default App
+export default App;
