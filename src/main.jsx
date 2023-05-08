@@ -9,14 +9,21 @@ import Clients from "./routes/Clients";
 import Events from "./routes/Events";
 import Users from "./routes/Users";
 import Reports from "./routes/Reports";
+import { AuthProvider } from "./Contexts/auth";
+import useAuth from "./hooks/useAuth";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
+const Private = ({ Item }) => {
+  const { signed } = useAuth();
 
-import { ProSidebarProvider } from "react-pro-sidebar";
+  return signed > 0 ? <Item /> : <LoginPage />;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element:  <Private Item={<Root />} />,
     errorElement: <ErrorPage />,
     loader: rootLoader,
     children: [
@@ -42,10 +49,17 @@ const router = createBrowserRouter([
     path: "clients",
     element: <Clients />,
   },
+  {
+    path: "signup",
+    element: <SignUpPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+
   </React.StrictMode>
 );

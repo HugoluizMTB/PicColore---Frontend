@@ -1,37 +1,55 @@
 import React, { useState } from "react";
+import useAuth from "../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const { signin } = useAuth();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = await loginUser({
-      username,
-      password,
-    });
+  const handleLogin = () => {
+    if (!email | !senha) {
+      setError("Preencha todos os campos");
+      return;
+    }
 
-    console.log("pedido de login feito");
-    console.log(token);
+    const res = signin(email, senha);
+
+    if (res) {
+      setError(res);
+      return;
+    }
+
+    navigate("/");
   };
 
   return (
     <div>
       <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <label>
           <p>Login</p>
-          <input type="text" onChange={(e) => setUserName(e.target.value)} />
+          <input type="email"
+            placeholder="Digite seu E-mail"
+            value={email}
+            onChange={(e) => [setEmail(e.target.value), setError("")]} />
         </label>
         <label>
           <p>Senha</p>
           <input
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Digite sua Senha"
+            value={senha}
+            onChange={(e) => [setSenha(e.target.value), setError("")]}
           />
         </label>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit">Login</button>
         </div>
       </form>
     </div>
