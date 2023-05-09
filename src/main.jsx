@@ -2,7 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles/index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  BrowserRouter,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Root, { loader as rootLoader } from "./routes/root";
 import ErrorPage from "./routes/error-page";
 import Clients from "./routes/Clients";
@@ -22,8 +28,8 @@ const Private = ({ Item }) => {
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element:  <Private Item={<Root />} />,
+    path: "/home",
+    element: <Root />,
     errorElement: <ErrorPage />,
     loader: rootLoader,
     children: [
@@ -55,11 +61,25 @@ const router = createBrowserRouter([
   },
 ]);
 
+const LoginRoutes = () => {
+  return (
+    <BrowserRouter>
+      <>
+        <Routes>
+          <Route exact path="/home" element={<Private Item={<RouterProvider router={router} />} />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route exact path="/signup" element={<SignUpPage />} />
+          <Route path="*" element={<LoginPage />} />
+        </Routes>
+      </>
+    </BrowserRouter>
+  );
+};
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <LoginRoutes />
     </AuthProvider>
-
   </React.StrictMode>
 );
