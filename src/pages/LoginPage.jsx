@@ -1,11 +1,11 @@
 import React from "react";
 
-import Login from "../components/Login";
+import Signin from "../pages/Signin";
 
 const LoginPage = () => {
     return (
         <div>
-            <Login/>
+            <Signin/>
         </div>
     )
 }
