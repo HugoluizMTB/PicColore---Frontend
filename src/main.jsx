@@ -19,6 +19,7 @@ import { AuthProvider } from "./Contexts/auth";
 import useAuth from "./hooks/useAuth";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import Home from "./pages/Home";
 
 const Private = ({ Item }) => {
   const { signed } = useAuth();
@@ -66,7 +67,7 @@ const LoginRoutes = () => {
     <BrowserRouter>
       <>
         <Routes>
-          <Route exact path="/home" element={<Private Item={<RouterProvider router={router} />} />} />
+          <Route exact path="/home" element={<Private Item={Home} />} />
           <Route path="/" element={<LoginPage />} />
           <Route exact path="/signup" element={<SignUpPage />} />
           <Route path="*" element={<LoginPage />} />

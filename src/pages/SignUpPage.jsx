@@ -1,8 +1,8 @@
 import React from "react";
 
-import SignUp from "../components/SignUp";
+import SignUp from "../pages/Signup";
 
-const LoginPage = () => {
+const SignUpPage = () => {
     return (
         <div>
             <SignUp/>
@@ -10,4 +10,4 @@ const LoginPage = () => {
     )
 }
 
-export default SignUp
+export default SignUpPage
